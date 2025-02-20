@@ -37,7 +37,7 @@ def fetch_ads(page, from_date, until_date):
     params = {
         "limit": "50",
         "offset": page,
-        "filter": "group in ['7587b11e-fa45-49b6-acf6-987e2a876bc2']"
+        "filter": f"group in ['{Variable.get_variable("tgAds")["_gid"]}']"
     }
     if from_date or until_date:
         params.update({"periodFrom": from_date, "periodTo": until_date})
