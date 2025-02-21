@@ -53,7 +53,7 @@ def fetch_data(filter, retry_count):
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36",
         "Content-Type": "application/json;charset=UTF-8",
-        "Cookie": Variable.get_variable("appsFlyer")["cookie"],
+        "Cookie": get_data()["cookie"],
     }
 
     body = {
@@ -122,6 +122,7 @@ def fetch_data(filter, retry_count):
 
 
 def refresh_auth():
+    auth_data = get_data()
     """Авторизуется в AppsFlyer и обновляет cookie-токен."""
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36",
@@ -129,8 +130,8 @@ def refresh_auth():
     }
 
     body = {
-        "username": "",
-        "password": "",
+        "username": auth_data['login'],
+        "password": auth_data['passwd'],
         "googletoken": "",
         "googleaccesstoken": "",
         "keep-user-logged-in": False,
@@ -146,3 +147,7 @@ def refresh_auth():
         Variable.update_variable({"appsFlyer": {"cookie": cookie}})
     else:
         print(f"Ошибка авторизации: {response.status_code} - {response.text}")
+
+
+def get_data():
+    return Variable.get_variable("appsFlyer")
