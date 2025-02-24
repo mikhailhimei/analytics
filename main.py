@@ -49,4 +49,4 @@ def get_data_tg_ads(authorization: str = Depends(verify_token), from_date: str =
 
 if __name__ == "__main__":
     Variable.set_variable()
-    uvicorn.run(app, host="0.0.0.0", port=8888)
+    uvicorn.run(app, host="0.0.0.0", port=9721)
