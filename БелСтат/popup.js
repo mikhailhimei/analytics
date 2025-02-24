@@ -98,7 +98,7 @@ function getDataFromDzen(cookieString,type) {
     else if(type == 'appsFlyer'){
         data = {
             appsFlyer: {
-                cookie: cookieString
+                cookie: 'af_jwt='+cookieString
             }
         };
     }

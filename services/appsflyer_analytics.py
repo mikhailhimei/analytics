@@ -50,10 +50,15 @@ def analytics(filter, apps):
 
 def fetch_data(filter, retry_count):
     """Отправляет запрос в AppsFlyer API и обрабатывает возможные ошибки."""
+    auth_cookie = get_data('appsFlyer')["cookie"]
+
+    if not auth_cookie:
+        auth_cookie = refresh_auth()
+        
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36",
         "Content-Type": "application/json;charset=UTF-8",
-        "Cookie": get_data('appsFlyer')["cookie"],
+        "Cookie": auth_cookie,
     }
 
     body = {
@@ -103,14 +108,13 @@ def fetch_data(filter, retry_count):
         verify=False,
     )
 
-    try:
+    try:       
         data = response.json()
         return {"status": response.status_code, "data": data}
 
     except:
         if response.status_code == 202:
             if retry_count == 0:
-                time.sleep(10)
                 return fetch_data(filter, retry_count + 1)
             return {"status": 202, "data": "Accepted"}
 
@@ -145,6 +149,7 @@ def refresh_auth():
     if response.status_code == 200 and "af_jwt" in response.cookies:
         cookie = f"af_jwt={response.cookies['af_jwt']}"
         Variable.update_variable({"appsFlyer": {"cookie": cookie}})
+        return cookie
     else:
         print(f"Ошибка авторизации: {response.status_code} - {response.text}")
 
