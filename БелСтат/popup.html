@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL в LocalStorage</title>
+    <style>
+        .notification {
+            display: none;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .form > input{
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form">
+        <h1>Введите URL</h1>
+        <input type="text" id="urlInput" placeholder="Введите URL">
+        <input type="text" id="tokenInput" placeholder="Введите token">
+        <button class="start">Отправить</button>
+    </div>
+    <div id="notification" class="notification">Готово!</div>
+
+    <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "БелСтат",
+  "version": "1.0",
+  "permissions": [
+    "cookies",
+    "tabs",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": ["*://*/*"],
+  "background": {
+    "service_worker": "popup.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "128": "free-icon-squirrel-1864480.png"
+  }
+}
